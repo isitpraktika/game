@@ -13,7 +13,7 @@ Rectangle {
 
                 Timer {
                     id: backgroundAnim
-                    interval: 75
+                    interval: 15
                     repeat: true
                     running: true
 
