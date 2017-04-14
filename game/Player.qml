@@ -1,15 +1,53 @@
 import QtQuick 2.0
 Item {
-    focus: true
+    id: player
+    signal boom()
     property int maxY: 0
+    property int  valY: 0
+    property int collision: 0
     onYChanged: {
-        if (y > maxY)
-            y=maxY
-        else if (y < 0)
-            y = 0
+
+        valY = y
+        if (y > maxY) {y=maxY}
+        else if (y < 0) {y = 0}
+//Невозможно передать переменную collision в Player'а
+    }
+    //Состояния
+    states: State{
+        name:"Death"
+        when: gameOver === true
+
+        PropertyChanges {
+
+           target: person
+
+
+
+            source:"assets/Person/deadbird.png"
+
+            rotation:760
+            focus:false
+
+            }
+        }
+    //Переходы состояний
+    transitions: Transition {
+        from: ""
+        to: "Death"
+        reversible: false
+        ParallelAnimation{
+            NumberAnimation{
+                properties: "x,rotation"
+                duration: 1000
+                easing.type: Easing.InOutBounce
+            }
+        }
     }
 
+
+
     Image {
+        focus: true
         id: person
         source: "assets/Person/bird.png"
         anchors.fill: parent
@@ -29,5 +67,10 @@ Item {
 
     Behavior on y {
         NumberAnimation {duration: 1000}
+    }
+
+    Text {
+        text: player.x + " : " + player.y
+        font.pixelSize: 40
     }
 }

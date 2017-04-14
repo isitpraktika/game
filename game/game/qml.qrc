@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Background.qml</file>
+        <file>assets/background/scrollingBackground.png</file>
+    </qresource>
+</RCC>
