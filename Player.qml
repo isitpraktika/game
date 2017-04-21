@@ -5,6 +5,7 @@ Item {
     property int maxY: 0
     property int  valY: 0
     property int collision: 0
+    focus: true
     onYChanged: {
 
         valY = y

@@ -9,17 +9,17 @@ Item {
     property int playerY: 0
     property int playerW: 0
     property int playerH: 0
-    property int i: 1
+    property int i: 0
 
-    function destroyRocket(){
 
-    }
 
     onXChanged: {
-        if (obstacle.x + rocket.width >= playerX && obstacle.x <= playerX
-                && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY){
+        //Проверка проводится только с активными ракетами
+        if ((obstacle.x + rocket.width >= playerX && obstacle.x <= playerX
+             && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY)&& rocket.visible == true){
             boom()
             obstacle.state = "RocketBoom"
+            collision++
         }
     }
 
@@ -31,10 +31,10 @@ Item {
     Component.onCompleted: {
         obstacle.boom(1)
     }
-//    Text {
-//        text: obstacle.x + " : " + obstacle.y
-//        font.pixelSize: 40
-//    }
+    //    Text {
+    //        text: obstacle.x + " : " + obstacle.y
+    //        font.pixelSize: 40
+    //    }
 
     states: [
         State {

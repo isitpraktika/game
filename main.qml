@@ -15,9 +15,10 @@ Window {
     property int collision: 0
     signal boom()
     onBoom: {
-        console.log("Signal")
+        if(collision == 2){
+
         bg.stop()
-        gameOver = true
+        gameOver = true}
     }
     Background {
         id: bg
