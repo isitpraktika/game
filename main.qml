@@ -16,7 +16,6 @@ Window {
     signal boom()
     onBoom: {
         if(collision == 2){
-
         bg.stop()
         gameOver = true}
     }
@@ -68,7 +67,8 @@ Window {
                 console.log("Click")
                 gameOver = false
                 restartButton.visible = false
-                bg.start()
+                bg.restart()
+                player.state = ""
                 //                obstacles.remove(1)
                 //                obstacles.remove(3)
 
@@ -108,15 +108,15 @@ Window {
     }
 
 
-//   MouseArea {
-//     anchors.fill: parent
-//    onClicked: {
-//    explosion.x=mouseX-explosion.width/2
-//    explosion.y=mouseY-explosion.height/2
-//    explosion.currentFrame=-1
-//    explosionTimer.start()
-//    }
-//    }
+   MouseArea {
+     anchors.fill: parent
+    onClicked: {
+    explosion.x=mouseX-explosion.width/2
+    explosion.y=mouseY-explosion.height/2
+    explosion.currentFrame=-1
+    explosionTimer.start()
+    }
+    }
 
 }
 

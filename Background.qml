@@ -10,8 +10,12 @@ Image {
 
        backgroundAnim.stop()
     }
-    function start(){
-        backgroundAnim.start()
+    function restart() {
+       background.width = 1600
+       background.x = 0
+       backgroundAnim.start()
+
+
     }
 
     states: [
