@@ -6,11 +6,32 @@ Image {
     width: 1600
     height: 600
     fillMode: Image.TileHorizontally
-
     function stop() {
+
        backgroundAnim.stop()
     }
+    function start(){
+        backgroundAnim.start()
+    }
 
+    states: [
+        State {
+            name: "BgStop"
+            when: Obstacle.state === "RocketBoom"
+            PropertyChanges {
+                target: backgroundAnim
+                running: false
+
+            }
+        }
+    ]
+    transitions: [
+        Transition {
+            from: ""
+            to: "BgStop"
+
+        }
+    ]
     Timer {
         id: backgroundAnim
         interval: 1000/60

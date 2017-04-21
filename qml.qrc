@@ -9,5 +9,8 @@
         <file>assets/background/ground.png</file>
         <file>assets/Obstacles/rocket.png</file>
         <file>assets/Person/deadbird.png</file>
+        <file>Button.qml</file>
+        <file>Expl.qml</file>
+        <file>assets/explosion.png</file>
     </qresource>
 </RCC>

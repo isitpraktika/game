@@ -1,28 +1,27 @@
 import QtQuick 2.0
 Item {
     id: player
-    focus: true
+    signal boom()
     property int maxY: 0
     property int  valY: 0
+    property int collision: 0
     onYChanged: {
 
         valY = y
         if (y > maxY) {y=maxY}
         else if (y < 0) {y = 0}
-//Невозможно передать переменную collision в Player'а
+
     }
     //Состояния
     states: State{
         name:"Death"
-        when: Obstacle.collision > 0//mArea.pressed === true//сравнивание координат игрока и ракеты.
+        when: gameOver === true
+
         PropertyChanges {
-//            target: player
-//            x:50
-//            rotation:960
-            target: person
+           target: person
             source:"assets/Person/deadbird.png"
-            x:50
             rotation:760
+            focus:false
             }
         }
     //Переходы состояний
@@ -39,9 +38,8 @@ Item {
         }
     }
 
-
-
     Image {
+        focus: true
         id: person
         source: "assets/Person/bird.png"
         anchors.fill: parent
@@ -61,10 +59,5 @@ Item {
 
     Behavior on y {
         NumberAnimation {duration: 1000}
-    }
-
-    Text {
-        text: player.x + " : " + player.y
-        font.pixelSize: 40
     }
 }
