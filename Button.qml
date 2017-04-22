@@ -25,7 +25,7 @@ Rectangle{
         PropertyChanges {
            target: butt
             visible: true
-            focus:true
+
             }
         }
 

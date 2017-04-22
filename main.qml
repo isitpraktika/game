@@ -13,6 +13,7 @@ Window {
     property bool initialized: false
     property int globalX: bg.x
     property int collision: 0
+    property int count: 0
     signal boom()
     onBoom: {
         if(collision == 2){
@@ -25,17 +26,13 @@ Window {
 
     ListModel {
         id: obstacles
-        ListElement {ox: 1000; oy: 0}
-        ListElement {ox: 1000; oy: 100}
-        ListElement {ox: 2000; oy: 200}
-        ListElement {ox: 3000; oy: 300}
-        ListElement {ox: 4000; oy: 400}
     }
     Repeater {
         model: obstacles
         Obstacle {
             Component.onCompleted: {
                 boom.connect(game.boom)
+                boom.connect(player.boom)
             }
             x:  ox + globalX
             y: oy
@@ -44,6 +41,13 @@ Window {
             playerW: player.width
             playerH: player.height
         }
+    }
+    Timer{
+        running: true
+        repeat: true
+        id:rocketT
+        interval: 1000
+        onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":player.y}); count ++}
     }
 
     Player {
@@ -69,54 +73,13 @@ Window {
                 restartButton.visible = false
                 bg.restart()
                 player.state = ""
-                //                obstacles.remove(1)
-                //                obstacles.remove(3)
+                collision = 0
 
-
-                //player.state = ""
             }
 
         }
     }
 
-    Expl {
-        id:explosion
-        framesHorizontCount:5
-        framesVerticalCount:1
-        framesCount:(framesHorizontCount*framesVerticalCount)
-        currentFrame:-1
-        sourcePath:"assets/explosion.png"
-        animationSpeed:40
-        x:0
-        y:0
-    }
-
-
-
-    Timer{
-        id:explosionTimer
-        interval:explosion.animationSpeed
-        running:false
-        repeat:true
-
-        onTriggered:{
-            explosion.currentFrame++
-            if (explosion.currentFrame==explosion.framesCount){
-                explosionTimer.stop()
-            }
-        }
-    }
-
-
-   MouseArea {
-     anchors.fill: parent
-    onClicked: {
-    explosion.x=mouseX-explosion.width/2
-    explosion.y=mouseY-explosion.height/2
-    explosion.currentFrame=-1
-    explosionTimer.start()
-    }
-    }
 
 }
 

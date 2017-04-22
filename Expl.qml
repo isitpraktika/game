@@ -1,6 +1,11 @@
 import QtQuick 2.0
 
+
 Item{
+
+    function exploid(){
+        explosionTimer.start()
+    }
  id:spriteAnimation
 
  property int framesHorizontCount:0
@@ -28,11 +33,9 @@ Item{
 
  height:spriteAnimationImage.height/framesVerticalCount
  width:spriteAnimationImage.width/framesHorizontCount
- // размер одного спрайта
 
  Image{
- // выводимый на эран спрайт
-
+//    visible: false
  id:spriteAnimationImage
  source:sourcePath
 
@@ -40,7 +43,22 @@ Item{
  -Math.floor(spriteAnimation.currentFrame/spriteAnimation.framesHorizontCount)
  *(spriteAnimation.framesHorizontCount*spriteAnimation.width))
  y:-(Math.floor(spriteAnimation.currentFrame/spriteAnimation.framesHorizontCount)*spriteAnimation.height)
- // координаты текущего спрайта
  }
 
+ Timer{
+     id:explosionTimer
+     interval:explosion.animationSpeed
+     running:false
+     repeat:true
+
+     onTriggered:{
+         if(rocket.state == "RocketBoom"){
+             running:true
+         explosion.currentFrame++
+         if (explosion.currentFrame==explosion.framesCount){
+             explosionTimer.stop()
+            }
+         }
+     }
+ }
 }

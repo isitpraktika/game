@@ -1,6 +1,7 @@
 import QtQuick 2.0
 
 
+
 Item {
     id: obstacle
 
@@ -19,6 +20,7 @@ Item {
              && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY)&& rocket.visible == true){
             boom()
             obstacle.state = "RocketBoom"
+            explosionTimer.start()
             collision++
         }
     }
@@ -28,14 +30,35 @@ Item {
         width: 100;   height: 80; rotation: -90
         source: "assets/Obstacles/rocket.png"
     }
+    Expl{
+        width: 100
+        height: 80
+        id:explosion
+        framesHorizontCount:5
+        framesVerticalCount:1
+        framesCount:(framesHorizontCount*framesVerticalCount)
+        currentFrame:-1
+        sourcePath:"assets/explosion.png"
+        animationSpeed:40
+
+        //y:player.y
+        Timer{
+            id:explosionTimer
+            interval:explosion.animationSpeed
+            running:false
+            repeat:true
+
+            onTriggered:{
+                explosion.currentFrame++
+                if (explosion.currentFrame==explosion.framesCount){
+                    explosionTimer.stop()
+                }
+            }
+        }
+    }
     Component.onCompleted: {
         obstacle.boom(1)
     }
-    //    Text {
-    //        text: obstacle.x + " : " + obstacle.y
-    //        font.pixelSize: 40
-    //    }
-
     states: [
         State {
             name: "RocketBoom"
@@ -53,23 +76,4 @@ Item {
             reversible: false
         }
     ]
-
-
-    //    Timer{
-    //        running: true
-    //        repeat: true
-    //        id: rocketT
-    //        interval: 500
-
-    //        onTriggered: {
-    //            parent.x -= 300
-    //        }
-    //    }
-
-    //    Behavior on x{
-    //        NumberAnimation{duration: 1000}
-    //    }
-
-
-
 }
