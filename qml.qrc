@@ -12,5 +12,12 @@
         <file>Button.qml</file>
         <file>Expl.qml</file>
         <file>assets/explosion.png</file>
+        <file>assets/Obstacles/rocket1.png</file>
+        <file>assets/Obstacles/laser_off.png</file>
+        <file>assets/Obstacles/laser_on.png</file>
+        <file>Laser.qml</file>
+        <file>assets/Heart.png</file>
+        <file>Heart.qml</file>
+        <file>Options.qml</file>
     </qresource>
 </RCC>

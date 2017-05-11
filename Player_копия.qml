@@ -6,10 +6,6 @@ Item {
     property int  valY: 0
     property int collision: 0
     focus: true
-    function start(){
-        gravity.start()
-    }
-
     onYChanged: {
 
         valY = y
@@ -23,12 +19,12 @@ Item {
         when: gameOver === true
 
         PropertyChanges {
-            target: person
+           target: person
             source:"assets/Person/deadbird.png"
             rotation:760
             focus:false
+            }
         }
-    }
     //Переходы состояний
     transitions: Transition {
         from: ""
@@ -54,10 +50,10 @@ Item {
         id: gravity
         repeat: true
         interval: 1000
-        running: false
+        running: true
 
         onTriggered: {
-            parent.y += 100
+            parent.y += 50
         }
     }
     Keys.onSpacePressed: y-=100

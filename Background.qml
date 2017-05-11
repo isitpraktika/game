@@ -7,8 +7,10 @@ Image {
     height: 600
     fillMode: Image.TileHorizontally
     function stop() {
-
        backgroundAnim.stop()
+    }
+    function start(){
+        backgroundAnim.start()
     }
     function restart() {
        background.width = 1600
@@ -40,8 +42,7 @@ Image {
         id: backgroundAnim
         interval: 1000/60
         repeat: true
-        running: true
-
+        running: false
         onTriggered: {
             background.x -= 5
             background.width += 5

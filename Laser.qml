@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Item {
-    id: obstacle
+    id: laserObstacle
 
     signal boom()
     property int playerX: 0
@@ -9,24 +9,31 @@ Item {
     property int playerW: 0
     property int playerH: 0
     property int i: 0
-
-
+    property int changeStates: 1
 
     onXChanged: {
-        //Проверка проводится только с активными ракетами
-        if ((obstacle.x + rocket.width >= playerX && obstacle.x <= playerX
-             && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY)&& rocket.visible == true){
+        if ((laserObstacle.state == " 2" && laserObstacle.x + laser.width >= playerX && laserObstacle.x <= playerX
+             && laserObstacle.y + laser.height >= playerY && laserObstacle.y <= playerY)){
             boom()
-            obstacle.state = "RocketBoom"
+            laserObstacle.state = " 1"
             explosionTimer.start()
             collision++
         }
     }
+    function changeState(){
+        changeStateS = getRandom(1,2)
+        if(changeStates == 1){
+            laserObstacle.state = " 1"
+        }
+        else if(changeStates == 2){
+            laserObstacle.state = " 2"
+        }
+    }
 
     Image {
-        id: rocket
-        width: 100;   height: 80; rotation: -90
-        source: "assets/Obstacles/rocket1.png"
+        id: laser
+        width: 40;   height: 160
+        source: "assets/Obstacles/laser_off.png"
     }
     Expl{
         width: 100
@@ -38,8 +45,6 @@ Item {
         currentFrame:-1
         sourcePath:"assets/explosion.png"
         animationSpeed:40
-
-        //y:player.y
         Timer{
             id:explosionTimer
             interval:explosion.animationSpeed
@@ -54,24 +59,32 @@ Item {
             }
         }
     }
+
+    Timer{
+        id: laserTimer
+        running: true
+        repeat: true
+        interval: 1000/60
+    }
     Component.onCompleted: {
-        obstacle.boom(1)
+        laserObstacle.boom(1)
     }
     states: [
         State {
-            name: "RocketBoom"
+            name: " 2"
             PropertyChanges {
-                target: rocket
-                visible:false
+                target: laser
+                source: "assets/Obstacles/laser_on.png"
+            }
+        },
+        State {
+            name: " 1"
+            PropertyChanges {
+                target: laser
+                source: "assets/Obstacles/laser_off.png"
 
             }
         }
     ]
-    transitions: [
-        Transition {
-            from: ""
-            to: "RocketBoom"
-            reversible: false
-        }
-    ]
+
 }
