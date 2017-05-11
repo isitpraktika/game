@@ -53,7 +53,7 @@ Window {
         repeat: true
         id:rocketT
         interval: 1000
-        onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2,5)}); count ++}
+        onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2,5+level)}); count ++}
 
     }
     Repeater {
