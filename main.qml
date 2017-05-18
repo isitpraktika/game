@@ -12,16 +12,38 @@ Window {
     property bool initialized: false
     property int globalX: bg.x
     property int collision: 0
+    property int score: 0
+    property int maxScore: 0
     property int count: 0
     property int level: 0
+    property int rand: 0
     signal boom()
+    signal bonusSignal()
 
     onBoom: {
-        hearts.remove(0)
-        if(collision == 2){
-            bg.stop()
-            gameOver = true
-            restartButton.visible = true
+        if (extraHeart.visible == true){
+            extraHeart.visible = false
+        }
+        else {
+            hearts.remove(0)
+            if(collision == 2 ){
+                bg.stop()
+                gameOver = true
+                restartButton.visible = true
+            }
+        }
+    }
+    onBonusSignal: {
+        rand = getRandom(1,3)
+
+
+        if (rand == 1 && extraHeart.visible == false ) {
+            extraHeart.visible = true
+            collision--
+        }
+        if (rand == 2){
+            player.state = "Neuyazvimiy"
+            bonusT2.running = true
         }
     }
     Background {
@@ -35,12 +57,64 @@ Window {
         hearts.append({ox: 1450, oy: 100})
         hearts.append({ox: 1400, oy: 100})
     }
+    ListModel {
+        id: bonuses
+    }
+
+    Timer{
+        running: false
+        repeat: false
+        id:bonusT2
+        interval: 5000
+        onTriggered: {player.state = ""}
+
+    }
+    Timer{
+        running: true
+        repeat: true
+        id:bonusT
+        interval: 4000
+        onTriggered: {bonuses.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2+level,5+2*level)}); count ++}
+
+    }
+
+    Repeater {
+        model: bonuses
+        Bonus {
+            Component.onCompleted: {
+                bonusSignal.connect(game.bonusSignal)
+                bonusSignal.connect(player.bonusSignal)
+            }
+            x:  (ox + globalX) * 0.5 * speed
+            y: oy
+            playerX: player.x
+            playerY: player.y
+            playerW: player.width
+            playerH: player.height
+        }
+    }
 
     ListModel {
         id: hearts
         ListElement {ox: 1500; oy: 100}
         ListElement {ox: 1450; oy: 100}
         ListElement {ox: 1400; oy: 100}
+
+    }
+
+    Text {
+        id: scoreText
+        text: ("Очки: "+score)
+        font.pointSize: 20
+        color: "white"
+
+    }
+    Text {
+        id: maxScoreText
+        text: ("Рекорд: "+maxScore)
+        font.pointSize: 20
+        color: "white"
+        y:30
 
     }
 
@@ -53,7 +127,7 @@ Window {
         repeat: true
         id:rocketT
         interval: 1000
-        onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2,5+level)}); count ++}
+        onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2+level,5+2*level)}); count ++}
 
     }
     Repeater {
@@ -88,6 +162,8 @@ Window {
             Component.onCompleted: {
                 boom.connect(game.boom)
                 boom.connect(player.boom)
+                state = Math.round(getRandom(1,2))
+
             }
             x:  ox + globalX
             y:  oy
@@ -95,7 +171,8 @@ Window {
             playerY: player.y
             playerW: player.width
             playerH: player.height
-            state: " 2"
+
+
         }
     }
     Player {
@@ -169,7 +246,8 @@ Window {
                 player.state = ""
                 collision = 0
                 restartHearts ()
-
+                if (score > maxScore) maxScore = score
+                score = 0
             }
         }
     }
@@ -194,7 +272,6 @@ Window {
                 }
 
             }
-
         }
         Text{
             font.pointSize: 17
@@ -250,5 +327,11 @@ Window {
             x: ox
             y: oy
         }
+    }
+    Heart{
+        id:extraHeart
+        visible: false
+        x:1500
+        y:150
     }
 }

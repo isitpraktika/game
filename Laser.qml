@@ -12,21 +12,25 @@ Item {
     property int changeStates: 1
 
     onXChanged: {
-        if ((laserObstacle.state == " 2" && laserObstacle.x + laser.width >= playerX && laserObstacle.x <= playerX
-             && laserObstacle.y + laser.height >= playerY && laserObstacle.y <= playerY)){
+        if (( laserObstacle.x + laser.width >= playerX && laserObstacle.x <= playerX
+             && laserObstacle.y + laser.height >= playerY && laserObstacle.y <= playerY) && laserObstacle.state == "2" && player.state != "Neuyazvimiy"){
+
             boom()
-            laserObstacle.state = " 1"
+            laserObstacle.state = "1"
             explosionTimer.start()
             collision++
+        }
+        if(laserObstacle.x == playerX){
+            score++
         }
     }
     function changeState(){
         changeStateS = getRandom(1,2)
         if(changeStates == 1){
-            laserObstacle.state = " 1"
+            laserObstacle.state = "1"
         }
         else if(changeStates == 2){
-            laserObstacle.state = " 2"
+            laserObstacle.state = "2"
         }
     }
 
@@ -71,14 +75,14 @@ Item {
     }
     states: [
         State {
-            name: " 2"
+            name: "2"
             PropertyChanges {
                 target: laser
                 source: "assets/Obstacles/laser_on.png"
             }
         },
         State {
-            name: " 1"
+            name: "1"
             PropertyChanges {
                 target: laser
                 source: "assets/Obstacles/laser_off.png"

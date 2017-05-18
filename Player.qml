@@ -5,6 +5,7 @@ Item {
     property int maxY: 0
     property int  valY: 0
     property int collision: 0
+    signal bonusSignal()
     focus: true
     function start(){
         gravity.start()
@@ -29,10 +30,18 @@ Item {
             focus:false
         }
     }
+     State {
+        name: "Neuyazvimiy"
+        PropertyChanges {
+            target: person
+            source:"assets/Neuyazvimimy.png"
+        }
+    }
     //Переходы состояний
     transitions: Transition {
         from: ""
         to: "Death"
+
         reversible: false
         ParallelAnimation{
             NumberAnimation{
@@ -48,6 +57,8 @@ Item {
         id: person
         source: "assets/Person/bird.png"
         anchors.fill: parent
+        width: 34
+        height: 24
     }
 
     Timer {

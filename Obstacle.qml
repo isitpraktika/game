@@ -15,11 +15,15 @@ Item {
     onXChanged: {
         //Проверка проводится только с активными ракетами
         if ((obstacle.x + rocket.width >= playerX && obstacle.x <= playerX
-             && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY)&& rocket.visible == true){
+             && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY)&& rocket.visible == true && player.state != "Neuyazvimiy"){
+
             boom()
             obstacle.state = "RocketBoom"
             explosionTimer.start()
             collision++
+        }
+        if(obstacle.x == playerX){
+            score++
         }
     }
 
