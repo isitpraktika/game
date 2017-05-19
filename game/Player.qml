@@ -11,51 +11,51 @@ Item {
         gravity.start()
     }
     onMaxYChanged: console.log(maxY)
-//    onYChanged: {
-//        //valY = y
-//        console.log(player.y)
-//        if (player.y > maxY) {player.y=maxY}
-//        else if (y < 0) {y = 0}
-//    }
+    //    onYChanged: {
+    //        //valY = y
+    //        console.log(player.y)
+    //        if (player.y > maxY) {player.y=maxY}
+    //        else if (y < 0) {y = 0}
+    //    }
 
     //Состояния
     states: [State{
-        name:"Death"
-        when: gameOver === true
+            name:"Death"
+            when: gameOver === true
 
-        PropertyChanges {
-            target: person
-            source:"assets/Person/deadbird.png"
-            rotation:760
-            focus:false
+            PropertyChanges {
+                target: person
+                source:"assets/Person/deadbird.png"
+                rotation:760
+                focus:false
+            }
         }
-    }
-    , State {
-        name: "Neuyazvimiy"
-        PropertyChanges {
-            target: person
-            rotation:360
+        , State {
+            name: "Neuyazvimiy"
+            PropertyChanges {
+                target: person
+                rotation:360
 
-           // focus:true
-            source:"assets/Neuyazvimimy.png"
+                // focus:true
+                source:"assets/Neuyazvimimy.png"
+            }
         }
-    }
     ]
     //Переходы состояний
     transitions: [Transition {
-        from: ""
-        to: "Death"
+            from: ""
+            to: "Death"
 
-        reversible: false
-        ParallelAnimation{
-            NumberAnimation{
-                properties: "x,rotation"
-                duration: 1000
+            reversible: false
+            ParallelAnimation{
+                NumberAnimation{
+                    properties: "x,rotation"
+                    duration: 1000
 
-                easing.type: Easing.InOutBounce
+                    easing.type: Easing.InOutBounce
+                }
             }
         }
-    }
         , Transition {
             from: ""
             to: "Neuyazvimiy"
@@ -68,7 +68,7 @@ Item {
                 }
             }
         }
-]
+    ]
     Image {
         focus: true
         id: person
@@ -83,20 +83,28 @@ Item {
         repeat: true
         interval: 1000/60
         running: false
-
         onTriggered: {
-            //parent.y += 175
 
-            player.y += accelerate
             if (player.y > maxY) {
-                    player.y=maxY
-                    return
+                player.y=maxY
+                accelerate = 0
+                console.log('ниже земли')
+
             }
-            accelerate+=7
+            else{
+                player.y += accelerate
+                accelerate+=7
+                console.log('над землей')
+            }
+
         }
     }
-    Keys.onSpacePressed: accelerate=-250
-
+    Keys.onSpacePressed: {
+        if (player.y >= maxY ){
+        player.y-=50}
+        accelerate=-250
+        console.log('пробел')
+    }
     Behavior on y {
         NumberAnimation {duration: 1000}
     }
