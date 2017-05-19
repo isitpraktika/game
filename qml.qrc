@@ -1,0 +1,23 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Background.qml</file>
+        <file>assets/background/scrollingBackground.png</file>
+        <file>Player.qml</file>
+        <file>assets/Person/bird.png</file>
+        <file>Obstacle.qml</file>
+        <file>assets/background/ground.png</file>
+        <file>assets/Obstacles/rocket.png</file>
+        <file>Button.qml</file>
+        <file>Expl.qml</file>
+        <file>assets/explosion.png</file>
+        <file>assets/Obstacles/Pipe.png</file>
+        <file>Pipe.qml</file>
+        <file>Pipe2.qml</file>
+        <file>Bonus.qml</file>
+        <file>assets/Bonus.png</file>
+        <file>assets/Person/bird2.png</file>
+        <file>Heart.qml</file>
+        <file>assets/Heart.png</file>
+    </qresource>
+</RCC>
