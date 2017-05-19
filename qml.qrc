@@ -19,5 +19,8 @@
         <file>assets/Heart.png</file>
         <file>Heart.qml</file>
         <file>Options.qml</file>
+        <file>Bonus.qml</file>
+        <file>assets/Bonus.png</file>
+        <file>assets/Neuyazvimimy.png</file>
     </qresource>
 </RCC>

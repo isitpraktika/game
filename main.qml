@@ -34,8 +34,8 @@ Window {
         }
     }
     onBonusSignal: {
-        rand = getRandom(1,3)
-
+        //rand = getRandom(1,3)
+        rand = 2
 
         if (rand == 1 && extraHeart.visible == false ) {
             extraHeart.visible = true
@@ -53,22 +53,23 @@ Window {
         return Math.random() * (max - min) + min;
     }
     function restartHearts () {
-        hearts.append({ox: 1500, oy: 100})
-        hearts.append({ox: 1450, oy: 100})
-        hearts.append({ox: 1400, oy: 100})
+        hearts.append({ox: 1100, oy: 100})
+        hearts.append({ox: 1050, oy: 100})
+        hearts.append({ox: 1000, oy: 100})
     }
     ListModel {
         id: bonuses
     }
-
+    //Таймер продолжительности умения неуязвимости
     Timer{
         running: false
         repeat: false
         id:bonusT2
-        interval: 5000
+        interval: 7500
         onTriggered: {player.state = ""}
 
     }
+    //Создает бонусы на карте
     Timer{
         running: true
         repeat: true
@@ -96,9 +97,9 @@ Window {
 
     ListModel {
         id: hearts
-        ListElement {ox: 1500; oy: 100}
-        ListElement {ox: 1450; oy: 100}
-        ListElement {ox: 1400; oy: 100}
+        ListElement {ox: 1100; oy: 100}
+        ListElement {ox: 1050; oy: 100}
+        ListElement {ox: 1000; oy: 100}
 
     }
 
@@ -130,6 +131,7 @@ Window {
         onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2+level,5+2*level)}); count ++}
 
     }
+    //Ракеты
     Repeater {
         model: obstacles
         Obstacle {
@@ -155,7 +157,7 @@ Window {
         interval: 1000
         onTriggered: {laserObstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,500)}); count ++; /*las.changeState()*/}
     }
-    //Laser{id:las}
+    //Лазеры
     Repeater{
         model: laserObstacles
         Laser{
@@ -175,6 +177,7 @@ Window {
 
         }
     }
+    //Игрок
     Player {
         id: player
         y: game.height/2
@@ -184,6 +187,7 @@ Window {
         collision: game.collision
 
     }
+    //Кнопки меню
     Button{
         id:startButton
         x:750
@@ -251,6 +255,7 @@ Window {
             }
         }
     }
+    //Опции в меню
     Options{
         id:options
         x:game.width/2-150
@@ -321,6 +326,7 @@ Window {
             }
         }
     }
+    //Отображение жизней
     Repeater {
         model: hearts
         Heart{
@@ -331,7 +337,7 @@ Window {
     Heart{
         id:extraHeart
         visible: false
-        x:1500
+        x:1100
         y:150
     }
 }

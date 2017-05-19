@@ -12,14 +12,13 @@ Item {
     }
 
     onYChanged: {
-
         valY = y
         if (y > maxY) {y=maxY}
         else if (y < 0) {y = 0}
-
     }
+
     //Состояния
-    states: State{
+    states: [State{
         name:"Death"
         when: gameOver === true
 
@@ -30,15 +29,17 @@ Item {
             focus:false
         }
     }
-     State {
+    , State {
         name: "Neuyazvimiy"
         PropertyChanges {
             target: person
+           // focus:true
             source:"assets/Neuyazvimimy.png"
         }
     }
+    ]
     //Переходы состояний
-    transitions: Transition {
+    transitions: [Transition {
         from: ""
         to: "Death"
 
@@ -51,7 +52,19 @@ Item {
             }
         }
     }
-
+//        , Transition {
+//            from: ""
+//            to: "Neuyazvimiy"
+//            reversible: true
+//            ParallelAnimation{
+//                NumberAnimation{
+//                    properties: "x,rotation"
+//                    duration: 1000
+//                    easing.type: Easing.InOutBounce
+//                }
+//            }
+//        }
+]
     Image {
         focus: true
         id: person
@@ -68,10 +81,10 @@ Item {
         running: false
 
         onTriggered: {
-            parent.y += 100
+            parent.y += 175
         }
     }
-    Keys.onSpacePressed: y-=100
+    Keys.onSpacePressed: y-=175
 
     Behavior on y {
         NumberAnimation {duration: 1000}
