@@ -3,26 +3,53 @@ import QtQuick 2.0
 Rectangle {
     anchors.fill: parent
 
+    Image {
+        id: background
+        source: "assets/background/scrollingBackground.png"
+        width: 1600
+        height: 600
+        fillMode: Image.TileHorizontally
 
-        Image {
-                id: background
-                source: "assets/background/scrollingBackground.png"
-                width: 288
-                height: 511
-                fillMode: Image.TileHorizontally
+        function stop() {
+           backgroundAnim.stop()
+        }
+        function start(){
+            backgroundAnim.start()
+        }
+        function restart() {
+           background.width = 1600
+           background.x = 0
+           backgroundAnim.start()
 
-                Timer {
-                    id: backgroundAnim
-                    interval: 15
-                    repeat: true
-                    running: true
 
-                    onTriggered: {
-                        background.x -= 1
-                        background.width += 1
-                    }
+        }
+
+        states: [
+            State {
+                name: "BgStop"
+                when: Obstacle.state === "RocketBoom"
+                PropertyChanges {
+                    target: backgroundAnim
+                    running: false
+
                 }
+            }
+        ]
+        transitions: [
+            Transition {
+                from: ""
+                to: "BgStop"
 
+            }
+        ]
+        Timer {
+            id: backgroundAnim
+            interval: 1000/60
+            repeat: true
+            running: false
+            onTriggered: {
+                background.x -=bgSpeed
+                background.width +=bgSpeed
+            }
+        }
     }
-
-}
