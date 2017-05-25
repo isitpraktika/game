@@ -12,12 +12,7 @@ Item {
         gravity.start()
     }
     onMaxYChanged: console.log(maxY)
-    //    onYChanged: {
-    //        //valY = y
-    //        console.log(player.y)
-    //        if (player.y > maxY) {player.y=maxY}
-    //        else if (y < 0) {y = 0}
-    //    }
+
 
     //Состояния
     states: [State{
