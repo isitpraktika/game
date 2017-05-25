@@ -1,6 +1,5 @@
 import QtQuick 2.0
 
-
 Rectangle{
     property string buttonText: "restart"
     id:butt
@@ -21,18 +20,6 @@ Rectangle{
         verticalAlignment: Text.AlignVCenter
     }
 
-
-
-//    states: State{
-//        name:"GameOver"
-//        when: gameOver === true
-
-//        PropertyChanges {
-//            target: butt
-//            visible: true
-
-//        }
-//    }
 
 }
 

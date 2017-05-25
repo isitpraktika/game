@@ -1,4 +1,5 @@
 import QtQuick 2.0
+
 Item {
     id: player
     signal boom()
@@ -109,3 +110,4 @@ Item {
         NumberAnimation {duration: 1000}
     }
 }
+

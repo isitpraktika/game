@@ -3,5 +3,13 @@
         <file>main.qml</file>
         <file>Background.qml</file>
         <file>assets/background/scrollingBackground.png</file>
+        <file>Bonus.qml</file>
+        <file>Button.qml</file>
+        <file>Expl.qml</file>
+        <file>Heart.qml</file>
+        <file>Laser.qml</file>
+        <file>Obstacle.qml</file>
+        <file>Options.qml</file>
+        <file>Player.qml</file>
     </qresource>
 </RCC>
