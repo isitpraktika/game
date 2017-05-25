@@ -10,7 +10,9 @@ Item {
     function start(){
         gravity.start()
     }
-    onMaxYChanged: console.log(maxY)
+    //onMaxYChanged: console.log(maxY)
+
+
     //    onYChanged: {
     //        //valY = y
     //        console.log(player.y)
@@ -84,17 +86,25 @@ Item {
         interval: 1000/60
         running: false
         onTriggered: {
+  a          if (player.y < 0) {
+                console.log(" до птица уперлась в потолок", player.y)
+                player.y = player.y - 100
+                accelerate+=100
+
+                console.log("после птица уперлась в потолок", player.y)
+                //accelerate = math.sqrt(accelerate*accelerate)
+            }
 
             if (player.y > maxY) {
                 player.y=maxY
                 accelerate = 0
-                console.log('ниже земли')
+                //console.log('ниже земли')
 
             }
             else{
                 player.y += accelerate
                 accelerate+=7
-                console.log('над землей')
+                //console.log('над землей')
             }
 
         }
@@ -103,7 +113,7 @@ Item {
         if (player.y >= maxY ){
         player.y-=50}
         accelerate=-250
-        console.log('пробел')
+        //console.log('пробел')
     }
     Behavior on y {
         NumberAnimation {duration: 1000}

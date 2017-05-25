@@ -45,8 +45,8 @@ Image {
         repeat: true
         running: false
         onTriggered: {
-            background.x -=bgSpeed
-            background.width +=bgSpeed
+            background.x -= bgSpeed
+            background.width += bgSpeed
         }
     }
 }

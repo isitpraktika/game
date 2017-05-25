@@ -12,6 +12,9 @@ Item {
     property int changeStates: 1
 
     onXChanged: {
+        if(x <= player.x - 100) {
+            laserObstacles.remove(0)
+        }
         if (( laserObstacle.x + laser.width >= playerX && laserObstacle.x <= playerX
              && laserObstacle.y + laser.height >= playerY && laserObstacle.y <= playerY) && laserObstacle.state == "2" && player.state != "Neuyazvimiy"){
 

@@ -14,6 +14,11 @@ Item {
 
     onXChanged: {
         //Проверка проводится только с активными ракетами
+        if(x <= player.x - 100) {
+            obstacles.remove(0)
+            console.log("Vilet")
+        }
+
         if ((obstacle.x + rocket.width >= playerX && obstacle.x <= playerX
              && obstacle.y + rocket.height >= playerY && obstacle.y <= playerY)&& rocket.visible == true && player.state != "Neuyazvimiy"){
 

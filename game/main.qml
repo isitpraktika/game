@@ -58,7 +58,11 @@ Window {
         hearts.append({ox: 1100, oy: 100})
         hearts.append({ox: 1050, oy: 100})
         hearts.append({ox: 1000, oy: 100})
+        obstacles.clear()
+        laserObstacles.clear()
+        bonuses.clear()
     }
+
     ListModel {
         id: bonuses
     }
@@ -83,11 +87,14 @@ Window {
 
     Repeater {
         model: bonuses
+
         Bonus {
             Component.onCompleted: {
                 bonusSignal.connect(game.bonusSignal)
                 bonusSignal.connect(player.bonusSignal)
+
             }
+
             x:  (ox + globalX) * 0.5 * speed
             y: oy
             playerX: player.x
@@ -130,7 +137,11 @@ Window {
         repeat: true
         id:rocketT
         interval: 1000
-        onTriggered: {obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2+level,5+2*level)}); count ++}
+        onTriggered: {
+            obstacles.append({"ox":count*300 + 1800,"oy":getRandom(0,550), "speed": getRandom(2+level,5+2*level)})
+            count ++
+
+        }
 
     }
     //Ракеты
@@ -252,6 +263,7 @@ Window {
                 bg.restart()
                 player.state = ""
                 collision = 0
+                count = 0
                 restartHearts ()
                 if (score > maxScore) maxScore = score
                 score = 0
@@ -301,7 +313,8 @@ Window {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    level+=1
+                    level++
+                    bgSpeed++
 
                 }
 
@@ -320,8 +333,9 @@ Window {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    if(level > 0){
-                        level-=1
+                    if(level > 0 && bgSpeed > 0){
+                        level--
+                        bgSpeed--
                     }
 
                 }
