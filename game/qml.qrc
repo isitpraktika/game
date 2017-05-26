@@ -3,5 +3,25 @@
         <file>main.qml</file>
         <file>Background.qml</file>
         <file>assets/background/scrollingBackground.png</file>
+        <file>Player.qml</file>
+        <file>assets/Person/bird.png</file>
+        <file>Obstacle.qml</file>
+        <file>assets/background/ground.png</file>
+        <file>assets/Obstacles/rocket.png</file>
+        <file>assets/Person/deadbird.png</file>
+        <file>Button.qml</file>
+        <file>Expl.qml</file>
+        <file>assets/explosion.png</file>
+        <file>assets/Obstacles/rocket1.png</file>
+        <file>assets/Obstacles/laser_off.png</file>
+        <file>assets/Obstacles/laser_on.png</file>
+        <file>Laser.qml</file>
+        <file>assets/Heart.png</file>
+        <file>Heart.qml</file>
+        <file>Options.qml</file>
+        <file>Bonus.qml</file>
+        <file>assets/Bonus.png</file>
+        <file>assets/Neuyazvimimy.png</file>
+        <file>assets/Music/8_BITNAYA_MUZYKA_-_..._(iPlayer.fm).wav</file>
     </qresource>
 </RCC>
